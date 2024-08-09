@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
   desc = "Get current Git branch",
   callback = function()
     if vim.fn.isdirectory(".git") ~= 0 then
-      local branch = vim.fn.system("git branch --show-current | tr -d '\n'")
+      local branch = vim.fn.system("git branch --show-current"):gsub("\n", "")
 
       if branch ~= nil then
         Utils.set_global_option("git_branch_name", " " .. branch .. " ")

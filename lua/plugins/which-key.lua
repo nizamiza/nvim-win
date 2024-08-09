@@ -1,6 +1,6 @@
 return {
   "folke/which-key.nvim",
-  init = function()
+  config = function()
     require("utils").set_options({
       timeout = true,
       timeoutlen = 500,

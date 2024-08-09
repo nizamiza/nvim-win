@@ -1,3 +1,5 @@
+require("options")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -20,7 +22,6 @@ require("oil").setup()
 
 -- Load the rest of the configuration
 require("colorscheme")
-require("options")
 require("keymaps")
 require("statusline")
 require("user_commands")

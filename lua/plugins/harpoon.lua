@@ -1,6 +1,6 @@
 return {
   "ThePrimeagen/harpoon",
-  init = function()
+  config = function()
     local nav_keymaps = {}
     for index, key in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }) do
       table.insert(nav_keymaps, {

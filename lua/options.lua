@@ -11,7 +11,7 @@ Utils.set_options({
   tabstop = 2,
   shiftwidth = 2,
   expandtab = true,
-  colorcolumn = "80",
+  colorcolumn = "120",
   textwidth = 80,
   cursorline = true,
   wrap = false,

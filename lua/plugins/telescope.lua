@@ -1,10 +1,18 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  init = function()
+  dependencies = {
+    "nvim-lua/plenary.nvim"
+  },
+  config = function()
     require("telescope").setup({
       defaults = {
         layout_strategy = "vertical",
+        file_ignore_patterns = {
+          ".git",
+          "node_modules",
+          "assets",
+          "dist"
+        }
       },
     })
 

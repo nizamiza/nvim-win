@@ -1,6 +1,6 @@
 return {
   "folke/flash.nvim",
-  init = function()
+  config = function()
     local function flash(cmd)
       return function()
         require("flash")[cmd]()

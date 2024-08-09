@@ -1,7 +1,7 @@
-# My Personal NeoVim Configuration (For Windows)
+# My Personal NeoVim Configuration (Windows Edition)
 
 Very simple configuration of NeoVim using [Lazy](https://github.com/folke/lazy.nvim)
-for plugin management.
+for plugin management compatible with Windows and Unix platforms.
 
 ## Installation
 
@@ -16,5 +16,5 @@ mv ~\AppData\Local\nvim ~\AppData\Local\nvim.bak
 Clone this repository into your config directory:
 
 ```bash
-git clone https://github.com/nizamiza/nvim.git ~\AppData\Local\nvim
+git clone https://github.com/nizamiza/nvim-win.git ~\AppData\Local\nvim
 ```

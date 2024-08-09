@@ -8,7 +8,7 @@ return {
     "hrsh7th/nvim-cmp",
     "L3MON4D3/LuaSnip",
   },
-  init = function()
+  config = function()
     local Utils = require("utils")
 
     -- LSP actions

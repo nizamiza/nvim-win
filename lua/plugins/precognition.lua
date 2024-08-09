@@ -1,6 +1,6 @@
 return {
   "tris203/precognition.nvim",
-  init = function()
+  config = function()
     require("utils").register_keymaps({
       c = {
         name = "precognition",
