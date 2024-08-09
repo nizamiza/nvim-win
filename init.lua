@@ -28,9 +28,6 @@ require("lazy").setup({
   },
 })
 
--- Use Oil (a file explorer) instead of netrw
-require("oil").setup()
-
 -- Load the rest of the configuration
 require("colorscheme")
 require("keymaps")
