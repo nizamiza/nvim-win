@@ -19,10 +19,9 @@ function M.set_global_option(key, value)
   vim.g[key] = value
 end
 
----@param keymaps table<string, any>b
----@param opts? table<string, string>
-function M.register_keymaps(keymaps, opts)
-  require("which-key").register(keymaps, opts)
+---@param keymaps table<string, any>
+function M.add_keymaps(keymaps)
+  require("which-key").add(keymaps)
 end
 
 return M

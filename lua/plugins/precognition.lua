@@ -1,12 +1,10 @@
 return {
   "tris203/precognition.nvim",
   config = function()
-    require("utils").register_keymaps({
-      c = {
-        name = "precognition",
-        t = { "<cmd>lua require('precognition').toggle()<cr>", "Toggle precognition" },
-        p = { "<cmd>lua require('precognition').peek()<cr>", "Peek precognition" },
-      }
-    }, { prefix = "<leader>" })
-  end
+    require("utils").add_keymaps({
+      { "<leader>c",  group = "precognition" },
+      { "<leader>ct", "<cmd>lua require('precognition').toggle()<cr>", desc = "Toggle precognition" },
+      { "<leader>cp", "<cmd>lua require('precognition').peek()<cr>",   desc = "Peek precognition" },
+    })
+  end,
 }

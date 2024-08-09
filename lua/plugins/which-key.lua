@@ -7,11 +7,14 @@ return {
     })
 
     require("which-key").setup({
-      key_labels = {
-        ["<leader>"] = "SPC",
-        ["<space>"] = "SPC",
-        ["<cr>"] = "RET"
-      }
+      icons = {
+        mappings = false,
+      },
+      replace = {
+        ["<leader>"] = "space",
+        ["<space>"] = "space",
+        ["<cr>"] = "enter",
+      },
     })
-  end
+  end,
 }

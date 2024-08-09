@@ -15,7 +15,18 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup({
+  spec = { { import = "plugins" } },
+  checker = {
+    enabled = true,
+    notify = true,
+    frequency = 86400,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+})
 
 -- Use Oil (a file explorer) instead of netrw
 require("oil").setup()

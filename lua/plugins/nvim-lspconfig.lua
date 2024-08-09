@@ -9,47 +9,41 @@ return {
     "L3MON4D3/LuaSnip",
   },
   config = function()
-    local Utils = require("utils")
-
     -- LSP actions
     vim.api.nvim_create_autocmd("LspAttach", {
       desc = "LSP actions",
       callback = function()
-        Utils.register_keymaps({
-          K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover information" },
-          D = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Open diagnostic float" },
-        })
+        require("utils").add_keymaps({
+          { "K",          "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
+          { "D",          "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
 
-        Utils.register_keymaps({
-          l = {
-            name = "LSP",
-            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code actions" },
-            d = { "<cmd>Telescope lsp_definitions<cr>", "Definitions" },
-            D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declaration" },
-            r = { "<cmd>Telescope lsp_references<cr>", "References" },
-            i = { "<cmd>Telescope lsp_implementations<cr>", "Implementations" },
-            t = { "<cmd>Telescope lsp_type_definitions<cr>", "Type definitions" },
-            S = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
-            R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename symbol under cursor" },
-            s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document symbols" },
-            w = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace symbols" },
-            f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format document" },
-          },
-          d = {
-            name = "diagnostics",
-            l = { "<cmd>Telescope diagnostics<cr>", "Document diagnostics" },
-            n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic" },
-            p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic" },
-          },
-        }, { prefix = "<leader>" })
-      end
+          { "<leader>l",  group = "LSP" },
+          { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
+          { "<leader>ld", "<cmd>Telescope lsp_definitions<cr>",        desc = "Definitions" },
+          { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "Declaration" },
+          { "<leader>lr", "<cmd>Telescope lsp_references<cr>",         desc = "References" },
+          { "<leader>li", "<cmd>Telescope lsp_implementations<cr>",    desc = "Implementations" },
+          { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>",   desc = "Type definitions" },
+          { "<leader>lS", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
+          { "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
+          { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>",   desc = "Document symbols" },
+          { "<leader>lw", "<cmd>Telescope lsp_workspace_symbols<cr>",  desc = "Workspace symbols" },
+          { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
+
+          { "<leader>d",  group = "diagnostics" },
+          { "<leader>dl", "<cmd>Telescope diagnostics<cr>",            desc = "Document diagnostics" },
+          { "<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
+          { "<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<cr>",   desc = "Previous diagnostic" },
+        })
+      end,
     })
 
     -- LSP configuration
     local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local nvim_lsp = require("lspconfig")
 
     local default_setup = function(server)
-      require("lspconfig")[server].setup({
+      nvim_lsp[server].setup({
         capabilities = lsp_capabilities,
       })
     end
@@ -95,23 +89,34 @@ return {
     })
 
     -- Language specific configuration
-    require("lspconfig").lua_ls.setup({
+    nvim_lsp.lua_ls.setup({
       capabilities = lsp_capabilities,
       settings = {
         Lua = {
           runtime = {
-            version = 'LuaJIT'
+            version = "LuaJIT",
           },
           diagnostics = {
-            globals = { 'vim' },
+            globals = { "vim" },
           },
           workspace = {
             library = {
               vim.env.VIMRUNTIME,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
+    })
+
+    nvim_lsp.tsserver.setup({
+      capabilities = lsp_capabilities,
+      root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
+      single_file_support = false,
+    })
+
+    nvim_lsp.denols.setup({
+      capabilities = lsp_capabilities,
+      root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
     })
 
     -- Format on save
@@ -124,7 +129,7 @@ return {
         vim.lsp.buf.format({
           bufnr = event.buf,
         })
-      end
+      end,
     })
-  end
+  end,
 }
