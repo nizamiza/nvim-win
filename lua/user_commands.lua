@@ -1,12 +1,3 @@
-local colorscheme = require("colorscheme")
-
-local function change_statusline_colorscheme(opts)
-  local wday = opts.fargs[1]
-  local bg_color = opts.fargs[2]
-
-  colorscheme.set_statusline_colorscheme(wday, bg_color)
-end
-
 local function delete_other_buffers(opts)
   local initial_force = opts.fargs[1] == "force"
   local force = initial_force
@@ -62,24 +53,6 @@ vim.api.nvim_create_user_command(
     desc = "Delete all buffers except the current one",
     complete = function()
       return { "force" }
-    end
-  }
-)
-
-vim.api.nvim_create_user_command(
-  "StatuslineColorscheme",
-  change_statusline_colorscheme,
-  {
-    nargs = "+",
-    desc = "Change the statusline colorscheme",
-    complete = function(_, cmd_line)
-      local args = vim.fn.split(cmd_line, " ")
-
-      if #args == 2 then
-        return { "dark", "light" }
-      end
-
-      return colorscheme.weekdays
     end
   }
 )
