@@ -29,6 +29,7 @@ return {
           { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>",   desc = "Document symbols" },
           { "<leader>lw", "<cmd>Telescope lsp_workspace_symbols<cr>",  desc = "Workspace symbols" },
           { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
+          { "<leader>lI", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
 
           { "<leader>d",  group = "diagnostics" },
           { "<leader>dl", "<cmd>Telescope diagnostics<cr>",            desc = "Document diagnostics" },
@@ -112,6 +113,20 @@ return {
       capabilities = lsp_capabilities,
       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
       single_file_support = false,
+      commands = {
+        OrganizeImports = {
+          function()
+            local params = {
+              command = "_typescript.organizeImports",
+              arguments = { vim.api.nvim_buf_get_name(0) },
+              title = "",
+            }
+
+            vim.lsp.buf.execute_command(params)
+          end,
+          desc = "Organize imports",
+        },
+      },
     })
 
     nvim_lsp.denols.setup({
