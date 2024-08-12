@@ -31,9 +31,9 @@ return {
       { "<leader>gb", "<cmd>Telescope git_branches<cr>",              desc = "Git branches" },
       { "<leader>gs", "<cmd>Telescope git_stash<cr>",                 desc = "Git stash" },
 
-      { "<leader>h",  group = "help" },
-      { "<leader>ht", "<cmd>Telescope help_tags<cr>",                 desc = "Help tags" },
-      { "<leader>hc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
+      { "<leader>?",  group = "help" },
+      { "<leader>?t", "<cmd>Telescope help_tags<cr>",                 desc = "Help tags" },
+      { "<leader>?c", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
 
       { "<leader>s",  group = "search" },
       { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search buffer" },
