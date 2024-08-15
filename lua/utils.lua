@@ -24,4 +24,8 @@ function M.add_keymaps(keymaps)
   require("which-key").add(keymaps)
 end
 
+function M.is_windows()
+  return vim.fn.has("win32") == 1
+end
+
 return M

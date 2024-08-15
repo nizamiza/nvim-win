@@ -10,9 +10,15 @@ return {
   },
   config = function()
     -- LSP actions
+    local keymaps_set = false
+
     vim.api.nvim_create_autocmd("LspAttach", {
       desc = "LSP actions",
       callback = function()
+        if keymaps_set then
+          return
+        end
+
         require("utils").add_keymaps({
           { "K",          "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
           { "D",          "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
@@ -36,6 +42,8 @@ return {
           { "<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
           { "<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<cr>",   desc = "Previous diagnostic" },
         })
+
+        keymaps_set = true
       end,
     })
 
@@ -43,9 +51,21 @@ return {
     local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
     local nvim_lsp = require("lspconfig")
 
+    local function on_init(client)
+      local workspace_folder_uris = {}
+
+      for _, folder in ipairs(client.workspace_folders) do
+        table.insert(workspace_folder_uris, folder.uri)
+      end
+
+      -- Set workspace folders for Copilot
+      require("utils").set_global_option("copilot_workspace_folders", workspace_folder_uris)
+    end
+
     local default_setup = function(server)
       nvim_lsp[server].setup({
         capabilities = lsp_capabilities,
+        on_init = on_init,
       })
     end
 
@@ -61,18 +81,20 @@ return {
     local cmp = require("cmp")
 
     cmp.setup({
-      sources = {
-        { name = "nvim_lsp" },
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
       },
       mapping = cmp.mapping.preset.insert({
         -- Confirm completion
         ["<cr>"] = cmp.mapping.confirm({ select = false }),
 
         -- Cancel completion
-        ["<c-e>"] = cmp.mapping.close(),
+        ["<c-e>"] = cmp.mapping.abort(),
 
         -- Trigger completion
-        ["<c-space>"] = cmp.mapping.complete(),
+        ["<c-b>"] = cmp.mapping.complete(),
 
         -- Navigate completion
         ["<c-n>"] = cmp.mapping.select_next_item(),
@@ -82,16 +104,18 @@ return {
         ["<c-d>"] = cmp.mapping.scroll_docs(4),
         ["<c-f>"] = cmp.mapping.scroll_docs(-4),
       }),
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-        end,
-      },
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+      }, {
+        { name = "buffer" },
+      }),
     })
 
     -- Language specific configuration
     nvim_lsp.lua_ls.setup({
       capabilities = lsp_capabilities,
+      on_init = on_init,
       settings = {
         Lua = {
           runtime = {
@@ -111,6 +135,7 @@ return {
 
     nvim_lsp.tsserver.setup({
       capabilities = lsp_capabilities,
+      on_init = on_init,
       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
       single_file_support = false,
       commands = {
@@ -131,6 +156,7 @@ return {
 
     nvim_lsp.denols.setup({
       capabilities = lsp_capabilities,
+      on_init = on_init,
       root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
     })
 
@@ -141,9 +167,7 @@ return {
       group = lsp_format_augroup,
       desc = "Format on save",
       callback = function(event)
-        vim.lsp.buf.format({
-          bufnr = event.buf,
-        })
+        vim.lsp.buf.format({ bufnr = event.buf })
       end,
     })
   end,

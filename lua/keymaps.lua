@@ -1,3 +1,5 @@
+vim.keymap.set("n", "q", "<nop>", { noremap = true })
+
 require("utils").add_keymaps({
   { "<esc>",            "<cmd>noh<cr>",                desc = "Cancel search highlighting" },
   { "<c-l>",            "<c-u>zz",                     desc = "Scroll half a page up" },
@@ -8,7 +10,7 @@ require("utils").add_keymaps({
   { "<leader>fs",       "<cmd>w<cr>",                  desc = "Save file" },
   { "<leader>fq",       "<cmd>q<cr>",                  desc = "Quit" },
 
-  { "<leader>b",        group = "buffer" },
+  { "<leader>b",        group = "buffers" },
   { "<leader>bd",       "<cmd>bd<cr>",                 desc = "Delete buffer" },
   { "<leader>bp",       "<cmd>bp<cr>",                 desc = "Previous buffer" },
   { "<leader>bn",       "<cmd>bn<cr>",                 desc = "Next buffer" },
