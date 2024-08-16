@@ -8,6 +8,7 @@ return {
         transparent = true,
       },
     })
+
     vim.cmd("colorscheme duskfox")
   end,
 }

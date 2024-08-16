@@ -8,43 +8,30 @@ return {
     "hrsh7th/nvim-cmp",
     "L3MON4D3/LuaSnip",
   },
-  config = function()
-    -- LSP actions
-    local keymaps_set = false
+  keys = {
+    { "K",         "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
+    { "D",         "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
 
+    { "g",         group = "go to" },
+    { "gd",        "<cmd>Telescope lsp_definitions<cr>",        desc = "Definitions" },
+    { "gD",        "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "Declaration" },
+    { "gr",        "<cmd>Telescope lsp_references<cr>",         desc = "References" },
+    { "gi",        "<cmd>Telescope lsp_implementations<cr>",    desc = "Implementations" },
+    { "gt",        "<cmd>Telescope lsp_type_definitions<cr>",   desc = "Type definitions" },
+
+    { "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
+    { "<leader>L", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
+    { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
+    { "<leader>s", "<cmd>Telescope lsp_document_symbols<cr>",   desc = "Document symbols" },
+    { "<leader>S", "<cmd>Telescope lsp_workspace_symbols<cr>",  desc = "Workspace symbols" },
+    { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
+    { "<leader>I", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
+    { "<leader>d", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
+  },
+  config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
       desc = "LSP actions",
-      callback = function()
-        if keymaps_set then
-          return
-        end
-
-        require("utils").add_keymaps({
-          { "K",          "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
-          { "D",          "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
-
-          { "<leader>l",  group = "LSP" },
-          { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
-          { "<leader>ld", "<cmd>Telescope lsp_definitions<cr>",        desc = "Definitions" },
-          { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "Declaration" },
-          { "<leader>lr", "<cmd>Telescope lsp_references<cr>",         desc = "References" },
-          { "<leader>li", "<cmd>Telescope lsp_implementations<cr>",    desc = "Implementations" },
-          { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>",   desc = "Type definitions" },
-          { "<leader>lS", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
-          { "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
-          { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>",   desc = "Document symbols" },
-          { "<leader>lw", "<cmd>Telescope lsp_workspace_symbols<cr>",  desc = "Workspace symbols" },
-          { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
-          { "<leader>lI", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
-
-          { "<leader>d",  group = "diagnostics" },
-          { "<leader>dl", "<cmd>Telescope diagnostics<cr>",            desc = "Document diagnostics" },
-          { "<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
-          { "<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<cr>",   desc = "Previous diagnostic" },
-        })
-
-        keymaps_set = true
-      end,
+      callback = function() end,
     })
 
     -- LSP configuration

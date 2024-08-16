@@ -1,36 +1,57 @@
 return {
   "ThePrimeagen/harpoon",
-  config = function()
-    local keymaps = {
-      { "<leader>h",  group = "harpoon" },
-      {
-        "<leader>hl",
-        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
-        desc = "Toggle Harpoon menu",
-      },
-      { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon the current file" },
-      {
-        "<ledaer>hp",
-        "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
-        desc = "Navigate to previous Harpoon mark",
-      },
-      {
-        "<leader>hn",
-        "<cmd>lua require('harpoon.ui').nav_next()<cr>",
-        desc = "Navigate to next Harpoon mark",
-      },
-    }
-
-    for index = 1, 9 do
-      table.insert(keymaps, {
-        {
-          "<leader>h" .. index,
-          "<cmd>lua require('harpoon.ui').nav_file(" .. index .. ")<cr>",
-          desc = "Navigate to Harpoon mark " .. index,
-        },
-      })
-    end
-
-    require("utils").add_keymaps(keymaps)
-  end,
+  opts = {},
+  keys = {
+    {
+      "<leader>h",
+      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
+      desc = "Toggle Harpoon menu",
+    },
+    { "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon the current file" },
+    {
+      "<leader>1",
+      "<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+      desc = "Navigate to Harpoon mark 1",
+    },
+    {
+      "<leader>2",
+      "<cmd>lua require('harpoon.ui').nav_file(2)<cr>",
+      desc = "Navigate to Harpoon mark 2",
+    },
+    {
+      "<leader>3",
+      "<cmd>lua require('harpoon.ui').nav_file(3)<cr>",
+      desc = "Navigate to Harpoon mark 3",
+    },
+    {
+      "<leader>4",
+      "<cmd>lua require('harpoon.ui').nav_file(4)<cr>",
+      desc = "Navigate to Harpoon mark 4",
+    },
+    {
+      "<leader>5",
+      "<cmd>lua require('harpoon.ui').nav_file(5)<cr>",
+      desc = "Navigate to Harpoon mark 5",
+    },
+    {
+      "<leader>6",
+      "<cmd>lua require('harpoon.ui').nav_file(6)<cr>",
+      desc = "Navigate to Harpoon mark 6",
+    },
+    {
+      "<leader>7",
+      "<cmd>lua require('harpoon.ui').nav_file(7)<cr>",
+      desc = "Navigate to Harpoon mark 7",
+    },
+    {
+      "<leader>8",
+      "<cmd>lua require('harpoon.ui').nav_file(8)<cr>",
+      desc = "Navigate to Harpoon mark 8",
+    },
+    {
+      "<leader>9",
+      "<cmd>lua require('harpoon.ui').nav_file(9)<cr>",
+      desc = "Navigate to Harpoon mark 9",
+    },
+  },
 }

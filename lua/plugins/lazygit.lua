@@ -10,10 +10,7 @@ return {
     "LazyGitFilter",
     "LazyGitFilterCurrentFile",
   },
-  init = function()
-    require("utils").add_keymaps({
-      { "<leader>g",  group = "git" },
-      { "<leader>gl", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-    })
-  end,
+  keys = {
+    { "<leader>g", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+  },
 }
