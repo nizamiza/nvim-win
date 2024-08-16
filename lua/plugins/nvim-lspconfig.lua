@@ -19,7 +19,7 @@ return {
     { "gi",        "<cmd>Telescope lsp_implementations<cr>",    desc = "Implementations" },
     { "gt",        "<cmd>Telescope lsp_type_definitions<cr>",   desc = "Type definitions" },
 
-    { "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
+    { "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
     { "<leader>L", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
     { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
     { "<leader>s", "<cmd>Telescope lsp_document_symbols<cr>",   desc = "Document symbols" },

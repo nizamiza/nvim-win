@@ -5,6 +5,7 @@ return {
   },
   opts = {
     defaults = {
+      initial_mode = "normal",
       layout_strategy = "vertical",
       file_ignore_patterns = {
         ".git",

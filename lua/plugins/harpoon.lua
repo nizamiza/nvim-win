@@ -4,7 +4,7 @@ local keys = {
     "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
     desc = "Toggle Harpoon menu",
   },
-  { "<leader>a", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon the current file" },
+  { "<leader>p", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Harpoon the current file" },
 }
 
 for index = 1, 9 do
