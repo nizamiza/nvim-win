@@ -1,3 +1,5 @@
+local img_previewer = { "chafa", "{file}", "--format=symbols" }
+
 return {
   "ibhagwan/fzf-lua",
   config = true,
@@ -5,6 +7,18 @@ return {
     winopts = {
       preview = {
         layout = "vertical",
+      },
+    },
+    previewers = {
+      builtin = {
+        extensions = {
+          ["png"] = img_previewer,
+          ["jpg"] = img_previewer,
+          ["jpeg"] = img_previewer,
+          ["gif"] = img_previewer,
+          ["svg"] = img_previewer,
+          ["webp"] = img_previewer,
+        },
       },
     },
   },
