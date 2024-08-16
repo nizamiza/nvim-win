@@ -2,7 +2,7 @@ local img_previewer = { "chafa", "{file}", "--format=symbols" }
 
 return {
   "ibhagwan/fzf-lua",
-  config = true,
+  cmd = "FzfLua",
   opts = {
     winopts = {
       preview = {
