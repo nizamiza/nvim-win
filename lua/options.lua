@@ -28,4 +28,6 @@ utils.set_options({
   updatetime = 50,
   timeoutlen = 100,
   scrolloff = 10,
+  spell = true,
+  spelllang = "en_us",
 })
