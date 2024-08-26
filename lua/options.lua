@@ -12,7 +12,7 @@ utils.set_options({
   shiftwidth = 2,
   expandtab = true,
   colorcolumn = "128",
-  textwidth = 80,
+  textwidth = 128,
   cursorline = true,
   wrap = false,
   mouse = "a",
