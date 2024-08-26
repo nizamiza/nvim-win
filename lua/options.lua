@@ -5,14 +5,16 @@ local leader = " "
 utils.set_global_option("mapleader", leader)
 utils.set_global_option("maplocalleader", leader)
 
+local textwidth = 128
+
 utils.set_options({
   clipboard = "unnamedplus",
   number = true,
   tabstop = 2,
   shiftwidth = 2,
   expandtab = true,
-  colorcolumn = "128",
-  textwidth = 128,
+  colorcolumn = tostring(textwidth),
+  textwidth = textwidth,
   cursorline = true,
   wrap = false,
   mouse = "a",
