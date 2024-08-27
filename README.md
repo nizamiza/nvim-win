@@ -12,8 +12,8 @@ for plugin management compatible with Windows and Unix platforms.
 - [chafa](https://github.com/hpjansson/chafa) - for image previews in fzf.
 - [ripgrep](https://github.com/BurntSushi/ripgrep) - for faster searching in fzf.
 - [Lazygit](https://github.com/jesseduffield/lazygit) - user friendly UI for git.
-- [StyLua](https://github.com/JohnnyMorganz/StyLua) - for Lua code formatting.
-- [Prettier daemon](https://github.com/fsouza/prettierd) or regular [Prettier](https://prettier.io) - for JavaScript/TypeScript code formatting.
+
+And all LSP servers and formatters that you need for your projects.
 
 If you're on macOS, most of these can be installed using [Homebrew](https://brew.sh).
 

@@ -4,15 +4,31 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "L3MON4D3/LuaSnip",
+    {
+      "L3MON4D3/LuaSnip",
+      lazy = true,
+      build = (not require("utils").is_windows())
+          and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+        or nil,
+      dependencies = {
+        {
+          "rafamadriz/friendly-snippets",
+          config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
+        },
+      },
+      opts = {
+        history = true,
+        delete_check_events = "TextChanged",
+      },
+    },
     {
       "hrsh7th/nvim-cmp",
       event = "InsertEnter",
       dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
       },
       config = function()
+        local luasnip = require("luasnip")
         local cmp = require("cmp")
 
         cmp.setup({
@@ -20,22 +36,47 @@ return {
             expand = function(args) require("luasnip").lsp_expand(args.body) end,
           },
           mapping = cmp.mapping.preset.insert({
-            -- Confirm completion
-            ["<cr>"] = cmp.mapping.confirm({ select = false }),
-
             -- Cancel completion
             ["<c-e>"] = cmp.mapping.abort(),
 
             -- Trigger completion
             ["<c-b>"] = cmp.mapping.complete(),
 
-            -- Navigate completion
-            ["<c-n>"] = cmp.mapping.select_next_item(),
-            ["<c-p>"] = cmp.mapping.select_prev_item(),
-
             -- Scroll documentation
             ["<c-d>"] = cmp.mapping.scroll_docs(4),
             ["<c-f>"] = cmp.mapping.scroll_docs(-4),
+
+            ["<cr>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                if luasnip.expandable() then
+                  luasnip.expand()
+                else
+                  cmp.confirm({ select = false })
+                end
+              else
+                fallback()
+              end
+            end),
+
+            ["<c-n>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+              else
+                fallback()
+              end
+            end, { "i", "s" }),
+
+            ["<c-p>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end, { "i", "s" }),
           }),
           sources = cmp.config.sources({
             { name = "nvim_lsp" },
@@ -72,10 +113,31 @@ return {
     local nvim_lsp = require("lspconfig")
 
     local default_config = {
-      capabilities = lsp_capabilities,
+      capabilities = vim.tbl_extend("force", lsp_capabilities, {
+        textDocument = {
+          completion = {
+            completionItem = {
+              snippetSupport = true,
+            },
+          },
+        },
+      }),
     }
 
+    -- package: vscode-langservers-extracted
+    for _, lsp_server in ipairs({ "html", "cssls", "jsonls" }) do
+      nvim_lsp[lsp_server].setup(vim.tbl_extend("force", default_config, {}))
+    end
+
+    -- Format on save
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+      group = vim.api.nvim_create_augroup("LspFormat", {}),
+      desc = "Format on save",
+      callback = function(event) vim.lsp.buf.format({ bufnr = event.buf }) end,
+    })
+
     -- Language specific configuration
+    -- package: lua-language-server
     nvim_lsp.lua_ls.setup(vim.tbl_extend("force", default_config, {
       settings = {
         Lua = {
@@ -97,6 +159,7 @@ return {
       },
     }))
 
+    -- package: typescript-language-server
     nvim_lsp.tsserver.setup(vim.tbl_extend("force", default_config, {
       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
       single_file_support = false,
@@ -128,15 +191,9 @@ return {
       },
     }))
 
+    -- package: deno (lsp is bundled with the deno executable)
     nvim_lsp.denols.setup(vim.tbl_extend("force", default_config, {
       root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
     }))
-
-    -- Format on save
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      group = vim.api.nvim_create_augroup("LspFormat", {}),
-      desc = "Format on save",
-      callback = function(event) vim.lsp.buf.format({ bufnr = event.buf }) end,
-    })
   end,
 }
