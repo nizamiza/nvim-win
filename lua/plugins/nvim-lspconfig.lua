@@ -9,7 +9,7 @@ return {
       lazy = true,
       build = (not require("utils").is_windows())
           and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-        or nil,
+          or nil,
       dependencies = {
         {
           "rafamadriz/friendly-snippets",
@@ -89,23 +89,23 @@ return {
     },
   },
   keys = {
-    { "K", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show hover information" },
-    { "D", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Open diagnostic float" },
+    { "K",         "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
+    { "D",         "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
 
-    { "g", group = "go to" },
-    { "gd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Definitions" },
-    { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Declaration" },
-    { "gr", "<cmd>FzfLua lsp_references<cr>", desc = "References" },
+    { "g",         group = "go to" },
+    { "gd",        "<cmd>FzfLua lsp_definitions<cr>",           desc = "Definitions" },
+    { "gD",        "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "Declaration" },
+    { "gr",        "<cmd>FzfLua lsp_references<cr>",            desc = "References" },
 
-    { "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code actions" },
+    { "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
     { "<leader>L", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
-    { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol under cursor" },
-    { "<leader>s", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols" },
-    { "<leader>S", "<cmd>FzfLua lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
-    { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format document" },
-    { "<leader>I", "<cmd>OrganizeImports<cr>", desc = "Organize imports" },
-    { "<leader>d", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
-    { "<leader>.", "<cmd>lua ToggleInlayHints()<cr>", desc = "Toggle inlay hints" },
+    { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
+    { "<leader>s", "<cmd>FzfLua lsp_document_symbols<cr>",      desc = "Document symbols" },
+    { "<leader>S", "<cmd>FzfLua lsp_workspace_symbols<cr>",     desc = "Workspace symbols" },
+    { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
+    { "<leader>I", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
+    { "<leader>d", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
+    { "<leader>.", "<cmd>lua ToggleInlayHints()<cr>",           desc = "Toggle inlay hints" },
   },
   config = function()
     -- LSP configuration
