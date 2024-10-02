@@ -124,6 +124,32 @@ return {
       }),
     }
 
+    -- package: rust-analyzer
+    nvim_lsp.rust_analyzer.setup(vim.tbl_extend("force", default_config, {
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+          },
+          checkOnSave = {
+            command = "clippy",
+          },
+          settings = {
+            config = {
+              inlayHints = {
+                bindingModeHints = { enable = false },
+                closingBraceHints = { minLines = 10 },
+                closureReturnTypeHints = { enable = "with_block" },
+                discriminantHints = { enable = "fieldless" },
+                lifetimeElisionHints = { enable = "skip_trivial" },
+                typeHints = { hideClosureInitialization = false },
+              },
+            },
+          },
+        },
+      },
+    }))
+
     -- package: vscode-langservers-extracted
     for _, lsp_server in ipairs({ "html", "cssls", "jsonls" }) do
       nvim_lsp[lsp_server].setup(vim.tbl_extend("force", default_config, {}))
