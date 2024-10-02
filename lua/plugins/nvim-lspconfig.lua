@@ -89,8 +89,9 @@ return {
     },
   },
   keys = {
-    { "K",         "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
-    { "D",         "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
+    { "<leader>k", "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
+    { "<leader>d", "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
+    { "]d",        "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
 
     { "g",         group = "go to" },
     { "gd",        "<cmd>FzfLua lsp_definitions<cr>",           desc = "Definitions" },
@@ -104,7 +105,6 @@ return {
     { "<leader>S", "<cmd>FzfLua lsp_workspace_symbols<cr>",     desc = "Workspace symbols" },
     { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
     { "<leader>I", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
-    { "<leader>d", "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
     { "<leader>.", "<cmd>lua ToggleInlayHints()<cr>",           desc = "Toggle inlay hints" },
   },
   config = function()
@@ -162,7 +162,6 @@ return {
     -- package: typescript-language-server
     nvim_lsp.tsserver.setup(vim.tbl_extend("force", default_config, {
       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
-      single_file_support = false,
       commands = {
         OrganizeImports = {
           function()
@@ -194,6 +193,7 @@ return {
     -- package: deno (lsp is bundled with the deno executable)
     nvim_lsp.denols.setup(vim.tbl_extend("force", default_config, {
       root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+      single_file_support = false,
     }))
   end,
 }
