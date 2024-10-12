@@ -9,7 +9,7 @@ return {
       lazy = true,
       build = (not require("utils").is_windows())
           and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-          or nil,
+        or nil,
       dependencies = {
         {
           "rafamadriz/friendly-snippets",
@@ -89,23 +89,23 @@ return {
     },
   },
   keys = {
-    { "<leader>k", "<cmd>lua vim.lsp.buf.hover()<cr>",          desc = "Show hover information" },
-    { "<leader>d", "<cmd>lua vim.diagnostic.open_float()<cr>",  desc = "Open diagnostic float" },
-    { "]d",        "<cmd>lua vim.diagnostic.goto_next()<cr>",   desc = "Next diagnostic" },
+    { "<leader>k", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show hover information" },
+    { "<leader>d", "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Open diagnostic float" },
+    { "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
 
-    { "g",         group = "go to" },
-    { "gd",        "<cmd>FzfLua lsp_definitions<cr>",           desc = "Definitions" },
-    { "gD",        "<cmd>lua vim.lsp.buf.declaration()<cr>",    desc = "Declaration" },
-    { "gr",        "<cmd>FzfLua lsp_references<cr>",            desc = "References" },
+    { "g", group = "go to" },
+    { "gd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Definitions" },
+    { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Declaration" },
+    { "gr", "<cmd>FzfLua lsp_references<cr>", desc = "References" },
 
-    { "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>",    desc = "Code actions" },
+    { "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code actions" },
     { "<leader>L", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show signature help" },
-    { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",         desc = "Rename symbol under cursor" },
-    { "<leader>s", "<cmd>FzfLua lsp_document_symbols<cr>",      desc = "Document symbols" },
-    { "<leader>S", "<cmd>FzfLua lsp_workspace_symbols<cr>",     desc = "Workspace symbols" },
-    { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>",         desc = "Format document" },
-    { "<leader>I", "<cmd>OrganizeImports<cr>",                  desc = "Organize imports" },
-    { "<leader>.", "<cmd>lua ToggleInlayHints()<cr>",           desc = "Toggle inlay hints" },
+    { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename symbol under cursor" },
+    { "<leader>s", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols" },
+    { "<leader>S", "<cmd>FzfLua lsp_workspace_symbols<cr>", desc = "Workspace symbols" },
+    { "<leader>F", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format document" },
+    { "<leader>I", "<cmd>OrganizeImports<cr>", desc = "Organize imports" },
+    { "<leader>.", "<cmd>lua ToggleInlayHints()<cr>", desc = "Toggle inlay hints" },
   },
   config = function()
     -- LSP configuration
@@ -155,14 +155,6 @@ return {
       nvim_lsp[lsp_server].setup(vim.tbl_extend("force", default_config, {}))
     end
 
-    -- Format on save
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-      group = vim.api.nvim_create_augroup("LspFormat", {}),
-      desc = "Format on save",
-      callback = function(event) vim.lsp.buf.format({ bufnr = event.buf }) end,
-    })
-
-    -- Language specific configuration
     -- package: lua-language-server
     nvim_lsp.lua_ls.setup(vim.tbl_extend("force", default_config, {
       settings = {
@@ -221,5 +213,15 @@ return {
       root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
       single_file_support = false,
     }))
+
+    -- package: phpactor
+    nvim_lsp.phpactor.setup(vim.tbl_extend("force", default_config, {}))
+
+    -- Format on save
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+      group = vim.api.nvim_create_augroup("LspFormat", {}),
+      desc = "Format on save",
+      callback = function(event) vim.lsp.buf.format({ bufnr = event.buf }) end,
+    })
   end,
 }
