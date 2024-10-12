@@ -29,25 +29,28 @@ If you installed `fnm`, make sure to install the latest version of Node.js:
 fnm install latest
 ```
 
-> If you plan to use GitHub Copilot, you will have to have an active subscription
-> to the service.
-
 ## Installation
 
 Before you start, make sure that you have installed [NeoVim](https://neovim.io)
 and [Git](https://http://git-scm.com) on your system. Then, backup your current
 configuration if you have any:
 
-```bash
+```sh
 # Windows
 mv ~\AppData\Local\nvim ~\AppData\Local\nvim.bak
+```
 
+```sh
 # Unix
 mv ~/.config/nvim ~/.config/nvim.bak
 ```
 
 Clone this repository into your config directory:
 
-```bash
+```sh
 git clone https://github.com/nizamiza/nvim-win.git ~\AppData\Local\nvim
+```
+
+```sh
+git clone https://github.com/nizamiza/nvim-win.git ~/.config/nvim
 ```
