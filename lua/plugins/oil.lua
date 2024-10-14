@@ -3,7 +3,7 @@ return {
   lazy = false,
   keys = {
     { "<leader>E", "<cmd>lua require('oil').toggle_float()<cr>", desc = "Open Oil in float" },
-    { "<leader>e", "<cmd>Oil<cr>", desc = "Open Oil in parent directory" },
+    { "<leader>e", "<cmd>Oil<cr>",                               desc = "Open Oil in parent directory" },
   },
   config = function()
     require("oil").setup({

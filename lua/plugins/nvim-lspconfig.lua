@@ -208,6 +208,9 @@ return {
       },
     }))
 
+    -- package: biome
+    nvim_lsp.biome.setup(vim.tbl_extend("force", default_config, {}))
+
     -- package: deno (lsp is bundled with the deno executable)
     nvim_lsp.denols.setup(vim.tbl_extend("force", default_config, {
       root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
@@ -221,7 +224,12 @@ return {
     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       group = vim.api.nvim_create_augroup("LspFormat", {}),
       desc = "Format on save",
-      callback = function(event) vim.lsp.buf.format({ bufnr = event.buf }) end,
+      callback = function(event)
+        vim.lsp.buf.format({
+          filter = function(client) return client.name ~= "ts_ls" end,
+          bufnr = event.buf,
+        })
+      end,
     })
   end,
 }
