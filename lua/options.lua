@@ -13,7 +13,7 @@ utils.set_options({
   tabstop = 2,
   shiftwidth = 2,
   expandtab = true,
-  colorcolumn = tostring(textwidth),
+  colorcolumn = tostring(textwidth) .. "," .. "144",
   textwidth = textwidth,
   cursorline = true,
   wrap = false,

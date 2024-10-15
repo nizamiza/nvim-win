@@ -18,11 +18,5 @@ return {
         end,
       },
     })
-
-    vim.cmd([[
-      augroup oil_escape
-        autocmd FileType oil nnoremap <buffer> <esc> <cmd>lua require('oil').close()<cr>
-      augroup END
-    ]])
   end,
 }
